@@ -1,0 +1,33 @@
+---
+title: "stat430 hw11"
+author: "Nora Garrity- ngarri3"
+date: "12/11/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+Figshare.file <- read.csv("~/Downloads/Figshare file.csv")
+test.group = Figshare.file[8:13]
+log.test.group = log(test.group)
+control.group = Figshare.file[14:19]
+log.control.group = log(control.group)
+```
+
+**Problem 1** two- tailed signed- rank Wilcoxon test
+```{r}
+wilcox.test(as.numeric(unlist((log.test.group)), as.numeric(unlist(log.control.group), paired = TRUE)))
+```
+Ho is rejected due to this very low p value, meaning that the control group and the vaccine group do not follow the same distribution as each other, thus varifying the researches conclusion.
+
+
+**Problem 2** Mann- Whitney U test
+```{r}
+wilcox.test(as.numeric(unlist((log.test.group)), as.numeric(unlist(log.control.group), paired = FALSE)))
+```
+Again, Ho is rejected due to this very low p value, meaning that the control group and the vaccine group do not follow the same distribution as each other, thus varifying the researches conclusion.
+
+

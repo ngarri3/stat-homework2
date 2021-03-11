@@ -1,0 +1,51 @@
+---
+title: "stat430 hw7"
+author: "Nora Garrity- ngarri3"
+date: "10/29/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+data <- read.csv("/Users/noragarrity/Downloads/adult.data")
+data
+```
+So as you can see, I was unable to upload my data in the standard way, meaning that my data set is different than the original. My data set has n = 32,560, as well as an error causing the age collumn to be assigned the name "X39". 
+
+```{r}
+age = data$X39
+n = 32560
+h = 32560^(-1/5)
+
+gaussian_kernel = function(x){
+  return(1/sqrt(2*pi)*exp((-x^2)/2))
+}
+
+kernel_density_estimator = function(x) {
+  kern = rep(0, n)
+  for(i in 1:n) {
+    kern[i] = gaussian_kernel((x-age[i])/h)/h
+  }
+  return((1/n)*sum(kern))
+}
+
+kernel_density_estimator(20)
+kernel_density_estimator(30)
+kernel_density_estimator(40)
+```
+
+```{r}
+k = function(w){
+  integrate(cos(tw)*gaussian_kernel(t), -inf, inf) + i*integrate(sin(tw)*gaussian_kernel(t), -inf, inf)
+}
+
+J_sqig = function(h) {
+  (-2*k(hw) + k^2(hw)*(1-(1/n))*y)
+}
+
+integrate(J_sqig, -500, 500)
+
+```
